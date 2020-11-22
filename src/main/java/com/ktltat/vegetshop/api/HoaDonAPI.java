@@ -19,7 +19,7 @@ public class HoaDonAPI {
     private HoaDonService hoaDonService;
 
     @GetMapping(value = "/hoadon")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<HoaDonDTO> getAllHoaDon(){
         return hoaDonService.findAllHoaDon();
     }
@@ -31,13 +31,13 @@ public class HoaDonAPI {
     }
 
     @PutMapping(value = "/hoadon")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateHoaDon(@RequestBody HoaDonDTO hoaDonDTO){
         hoaDonService.updateHoaDon(hoaDonDTO);
     }
 
     @DeleteMapping(value = "/hoadon/{idhd}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteHoaDon(@PathVariable Integer idhd){
         hoaDonService.deleteHoaDon(idhd);
     }

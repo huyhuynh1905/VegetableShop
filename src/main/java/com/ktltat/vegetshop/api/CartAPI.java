@@ -20,31 +20,31 @@ public class CartAPI {
     private CartService cartService;
 
     @GetMapping(value = "/cart")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public List<CartDTO> getAllCart(){
         return cartService.findAllCart();
     }
 
     @GetMapping(value = "/cartbyidtk")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public List<CartDTO> getCartByIdtk(@RequestParam("idtk") Integer idtk){
         return cartService.getCartByIdtk(idtk);
     }
 
     @PostMapping(value = "/cart")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public CartDTO addCart(@RequestBody CartDTO cartDTO){
         return cartService.addCart(cartDTO);
     }
 
     @PutMapping(value = "/cart")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public void updateCart(@RequestBody CartDTO cartDTO){
         cartService.updateCart(cartDTO);
     }
 
     @DeleteMapping(value = "/cart/{idcart}")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public void deleteCart(@PathVariable Integer idcart){
         cartService.deleteCart(idcart);
     }

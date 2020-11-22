@@ -38,7 +38,7 @@ public class SanPhamAPI {
 
     //Upload Sản Phẩm có image:
     @PostMapping(value = "/uploadsp")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public @ResponseBody ResponseEntity<?> createEmployee(@RequestParam("tensp") String tensp,
                                      @RequestParam("giasp") String giasp
                                     , @RequestParam("thuonghieu") String thuonghieu
@@ -87,19 +87,19 @@ public class SanPhamAPI {
     }
 
     @PostMapping(value = "/sanpham")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public SanPhamDTO addSanPham(@RequestBody SanPhamDTO sanPhamDTO){
         return sanPhamService.addSanPham(sanPhamDTO);
     }
 
     @PutMapping(value = "/sanpham")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateSanPham(@RequestBody SanPhamDTO sanPhamDTO){
         sanPhamService.updateSanPham(sanPhamDTO);
     }
 
     @DeleteMapping(value = "/sanpham/{idsp}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteSanPham(@PathVariable Integer idsp){
         sanPhamService.deleteSanPham(idsp);
     }

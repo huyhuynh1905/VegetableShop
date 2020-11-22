@@ -1,6 +1,5 @@
 package com.ktltat.vegetshop.api;
 
-import com.ktltat.vegetshop.dto.LoaiQuaDTO;
 import com.ktltat.vegetshop.dto.PhanLoaiDTO;
 import com.ktltat.vegetshop.service.impl.PhanLoaiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,25 +20,25 @@ public class PhanLoaiAPI {
     private PhanLoaiService phanLoaiService;
 
     @GetMapping(value = "/phanloai")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<PhanLoaiDTO> getAllLoaiQua(){
         return phanLoaiService.findAllPhanLoai();
     }
 
     @PostMapping(value = "/phanloai")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public PhanLoaiDTO addLoaiQua(@RequestBody PhanLoaiDTO phanLoaiDTO){
         return phanLoaiService.addPhanLoai(phanLoaiDTO);
     }
 
     @PutMapping(value = "/phanloai")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateLoaiQua(@RequestBody PhanLoaiDTO phanLoaiDTO){
         phanLoaiService.updatePhanLoai(phanLoaiDTO);
     }
 
     @DeleteMapping(value = "/phanloai/{idpl}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteLoaiQua(@PathVariable Integer idpl){
         phanLoaiService.deletePhanLoai(idpl);
     }
