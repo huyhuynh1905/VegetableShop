@@ -13,4 +13,6 @@ import java.util.List;
 public interface TaiKhoanRepository extends JpaRepository<TaiKhoanEntity,Integer> {
     TaiKhoanEntity findTaiKhoanEntityByEmail(String email);
     List<TaiKhoanEntity> findAll();
+    TaiKhoanEntity findByIdtk(Integer idtk);
+    void deleteByIdtk(Integer idtk);
 }

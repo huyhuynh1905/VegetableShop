@@ -19,6 +19,7 @@ public class CartConverter {
         cartDTO.setIdsp(entity.getIdsp());
         cartDTO.setIdtk(entity.getIdtk());
         cartDTO.setSoluong(entity.getSoluong());
+        cartDTO.setTonggia(entity.getTongiga());
         return cartDTO;
     }
     public CartEntity toCartEntity(CartDTO cartDTO){
@@ -27,6 +28,7 @@ public class CartConverter {
         cartEntity.setIdsp(cartDTO.getIdsp());
         cartEntity.setIdtk(cartDTO.getIdtk());
         cartEntity.setSoluong(cartDTO.getSoluong());
+        cartEntity.setTongiga(cartDTO.getTonggia());
         return cartEntity;
     }
 

@@ -12,6 +12,7 @@ public class CartDTO {
     private int idsp;
     private int idtk;
     private int soluong;
+    private String tonggia;
 
     public int getIdcart() {
         return idcart;
@@ -43,5 +44,13 @@ public class CartDTO {
 
     public void setSoluong(int soluong) {
         this.soluong = soluong;
+    }
+
+    public String getTonggia() {
+        return tonggia;
+    }
+
+    public void setTonggia(String tonggia) {
+        this.tonggia = tonggia;
     }
 }

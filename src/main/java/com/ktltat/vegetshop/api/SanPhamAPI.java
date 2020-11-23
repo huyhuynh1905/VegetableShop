@@ -1,7 +1,10 @@
 package com.ktltat.vegetshop.api;
 
+import com.ktltat.vegetshop.dto.PhanLoaiDTO;
 import com.ktltat.vegetshop.dto.SanPhamDTO;
+import com.ktltat.vegetshop.entity.PhanLoaiEntity;
 import com.ktltat.vegetshop.entity.SanPhamEntity;
+import com.ktltat.vegetshop.service.impl.PhanLoaiService;
 import com.ktltat.vegetshop.service.impl.SanPhamService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
@@ -36,6 +38,9 @@ public class SanPhamAPI {
     @Autowired
     private SanPhamService sanPhamService;
 
+    @Autowired
+    private PhanLoaiService phanLoaiService;
+
     //Upload Sản Phẩm có image:
     @PostMapping(value = "/uploadsp")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -46,6 +51,7 @@ public class SanPhamAPI {
                                     , @RequestParam("nguongoc") String nguongoc
                                     , @RequestParam("khoiluong") String khoiluong
                                     , @RequestParam("chitiet") String chitiet
+                                    , @RequestParam("loaisp") String loaisp
                                     , HttpServletRequest request
                                     , final @RequestParam("hinhanh") MultipartFile hinhanh){
         try {
@@ -71,6 +77,39 @@ public class SanPhamAPI {
             sanPhamService.saveSanPham(sanPhamEntity);
             log.info("Employee Created");
             headers.add("Employe Saved With Image - ", fileName);
+            List<SanPhamDTO> sanPhamDTOS = sanPhamService.findAllSanPham();
+            int sizeArr = sanPhamDTOS.size();
+            //Xử lí loại thêm vào:
+            String[] arrayList = loaisp.split("-");
+            for (String x: arrayList) {
+                if (x.equals("1")){
+                    PhanLoaiDTO phanLoaiDTO = new PhanLoaiDTO();
+                    phanLoaiDTO.setIdloaisp(Integer.parseInt(x));
+                    phanLoaiDTO.setIdsp(sanPhamDTOS.get(sizeArr-1).getIdsp());
+                    phanLoaiService.addPhanLoai(phanLoaiDTO);
+                } else if (x.equals("2")){
+                    PhanLoaiDTO phanLoaiDTO = new PhanLoaiDTO();
+                    phanLoaiDTO.setIdloaisp(Integer.parseInt(x));
+                    phanLoaiDTO.setIdsp(sanPhamDTOS.get(sizeArr-1).getIdsp());
+                    phanLoaiService.addPhanLoai(phanLoaiDTO);
+                } else if (x.equals("3")){
+                    PhanLoaiDTO phanLoaiDTO = new PhanLoaiDTO();
+                    phanLoaiDTO.setIdloaisp(Integer.parseInt(x));
+                    phanLoaiDTO.setIdsp(sanPhamDTOS.get(sizeArr-1).getIdsp());
+                    phanLoaiService.addPhanLoai(phanLoaiDTO);
+                } else if (x.equals("4")){
+                    PhanLoaiDTO phanLoaiDTO = new PhanLoaiDTO();
+                    phanLoaiDTO.setIdloaisp(Integer.parseInt(x));
+                    phanLoaiDTO.setIdsp(sanPhamDTOS.get(sizeArr-1).getIdsp());
+                    phanLoaiService.addPhanLoai(phanLoaiDTO);
+                }else if (x.equals("5")){
+                    PhanLoaiDTO phanLoaiDTO = new PhanLoaiDTO();
+                    phanLoaiDTO.setIdloaisp(Integer.parseInt(x));
+                    phanLoaiDTO.setIdsp(sanPhamDTOS.get(sizeArr-1).getIdsp());
+                    phanLoaiService.addPhanLoai(phanLoaiDTO);
+                }
+            }
+
             return new ResponseEntity<>(filePath+" Employe Saved With File - " + fileName, headers, HttpStatus.OK);
 
         } catch (Exception e) {
@@ -110,6 +149,7 @@ public class SanPhamAPI {
     }
 
     @GetMapping(value = "/sanpham={idsp}")
+    @PreAuthorize("permitAll()")
     public SanPhamDTO findByIdsp(@PathVariable Integer idsp){
         return sanPhamService.findByIdsp(idsp);
     }

@@ -67,14 +67,17 @@ public class TaiKhoanService implements ITaiKhoanService, UserDetailsService {
         return new CustomTaiKhoanDetails(taiKhoanEntity);
     }
 
-
-    /*
     @Override
-    public TaiKhoanEntity login(String email, String pass) {
+    public void deleteTaiKhoanByIdtk(Integer idtk) {
+        taiKhoanRepository.deleteByIdtk(idtk);
+    }
+
+    //Phương thưc ko từ interfaece
+    public TaiKhoanEntity loadTaiKhoan(String email) {
         TaiKhoanEntity taiKhoanEntity = taiKhoanRepository.findTaiKhoanEntityByEmail(email);
-        boolean check = myBCrypPassword.checkPassword(pass,taiKhoanEntity.getPass());
-        if (check) {
-            return taiKhoanEntity;
-        } else return null;
-    }*/
+        return taiKhoanEntity;
+    }
+    public TaiKhoanEntity findByIdtk(Integer idtk){
+        return taiKhoanRepository.findByIdtk(idtk);
+    }
 }

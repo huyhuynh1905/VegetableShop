@@ -17,5 +17,6 @@ public interface ITaiKhoanService {
     List<TaiKhoanDTO> getAllTaiKhoan();
     void updateTaiKhoan(TaiKhoanEntity taiKhoanEntity);
     void deleteTaiKhoan(TaiKhoanEntity taiKhoanEntity);
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
+    UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
+    void deleteTaiKhoanByIdtk(Integer idtk);
 }

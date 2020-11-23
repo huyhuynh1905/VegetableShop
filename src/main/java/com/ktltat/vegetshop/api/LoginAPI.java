@@ -8,6 +8,7 @@ import com.ktltat.vegetshop.dto.TaiKhoanDTO;
 import com.ktltat.vegetshop.entity.TaiKhoanEntity;
 import com.ktltat.vegetshop.service.impl.TaiKhoanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,19 +37,22 @@ public class LoginAPI {
 
     @PostMapping(value = "/adduser")
     public TaiKhoanDTO addTaiKhoan (@RequestBody TaiKhoanDTO taiKhoanDTO){
+        taiKhoanDTO.setPhanquyen(0);
         return taiKhoanService.save(taiKhoanDTO);
     }
 
     @PostMapping("/login")
-    public LoginResponse authenticateUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
         // Xác thực từ username và password.
-        Authentication authentication = null;
+        Authentication authentication;
+        TaiKhoanEntity taiKhoanEntity;
         try {
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPass()));
+            taiKhoanEntity = taiKhoanService.loadTaiKhoan(loginRequest.getEmail());
         } catch (Exception ex){
-
+            return (ResponseEntity<?>) ResponseEntity.status(500);
         }
         // Nếu không xảy ra exception tức là thông tin hợp lệ
         // Set thông tin authentication vào Security Context
@@ -56,7 +60,13 @@ public class LoginAPI {
 
         // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((CustomTaiKhoanDetails) authentication.getPrincipal());
-        return new LoginResponse(jwt);
+        LoginResponse loginResponse = new LoginResponse(jwt);
+        loginResponse.setEmail(taiKhoanEntity.getEmail());
+        loginResponse.setIdtk(taiKhoanEntity.getIdtk());
+        loginResponse.setTentk(taiKhoanEntity.getPhone());
+        loginResponse.setPhone(taiKhoanEntity.getPhone());
+        loginResponse.setPhanquyen(taiKhoanEntity.getPhanquyen());
+        return ResponseEntity.ok(loginResponse);
     }
 
     @GetMapping(value = "/getalltaikhoan")
@@ -68,13 +78,15 @@ public class LoginAPI {
     @PutMapping(value = "/updatetaikhoan")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateTaiKhoan(@RequestBody TaiKhoanEntity taiKhoanEntity){
+        TaiKhoanEntity entity = taiKhoanService.findByIdtk(taiKhoanEntity.getIdtk());
+        taiKhoanEntity.setPass(entity.getPass());
         taiKhoanService.updateTaiKhoan(taiKhoanEntity);
     }
 
-    @DeleteMapping(value = "/deletetaikhoan")
+    @DeleteMapping(value = "/deletetaikhoan={idtk}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteTaiKhoan(@RequestBody TaiKhoanEntity taiKhoanEntity){
-        taiKhoanService.deleteTaiKhoan(taiKhoanEntity);
+    public void deleteTaiKhoan(@PathVariable Integer idtk){
+        taiKhoanService.deleteTaiKhoanByIdtk(idtk);
     }
 
     /*@PostMapping(value = "/loginpage")

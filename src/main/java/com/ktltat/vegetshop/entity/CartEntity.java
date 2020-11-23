@@ -23,6 +23,9 @@ public class CartEntity {
     @Column(name = "soluong")
     private int soluong;
 
+    @Column(name = "tonggia")
+    private String tongiga;
+
 
     public int getIdcart() {
         return idcart;
@@ -54,5 +57,13 @@ public class CartEntity {
 
     public void setSoluong(int soluong) {
         this.soluong = soluong;
+    }
+
+    public String getTongiga() {
+        return tongiga;
+    }
+
+    public void setTongiga(String tongiga) {
+        this.tongiga = tongiga;
     }
 }
