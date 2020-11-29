@@ -64,7 +64,7 @@ public class LoginAPI {
         LoginResponse loginResponse = new LoginResponse(jwt);
         loginResponse.setEmail(taiKhoanEntity.getEmail());
         loginResponse.setIdtk(taiKhoanEntity.getIdtk());
-        loginResponse.setTentk(taiKhoanEntity.getPhone());
+        loginResponse.setTentk(taiKhoanEntity.getTentk());
         loginResponse.setPhone(taiKhoanEntity.getPhone());
         loginResponse.setPhanquyen(taiKhoanEntity.getPhanquyen());
         return ResponseEntity.ok(loginResponse);

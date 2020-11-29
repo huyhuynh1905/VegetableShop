@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 public class SanPhamAPI {
 
-    public static String uploadDirectory = System.getProperty("user.dir") + "/uploads";
+    public static String uploadDirectory = "C:\\Users\\nhathuy\\Desktop\\vegetshop3\\VegetableShopFront\\vegetshop\\public\\img";//System.getProperty("user.dir") + "/uploads";
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
