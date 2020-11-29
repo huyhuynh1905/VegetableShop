@@ -60,6 +60,7 @@ public class LoginAPI {
 
         // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((CustomTaiKhoanDetails) authentication.getPrincipal());
+        //Các thông tin khác khi trả về
         LoginResponse loginResponse = new LoginResponse(jwt);
         loginResponse.setEmail(taiKhoanEntity.getEmail());
         loginResponse.setIdtk(taiKhoanEntity.getIdtk());

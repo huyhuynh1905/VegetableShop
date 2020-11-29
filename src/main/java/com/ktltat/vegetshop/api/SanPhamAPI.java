@@ -137,7 +137,7 @@ public class SanPhamAPI {
         sanPhamService.updateSanPham(sanPhamDTO);
     }
 
-    @DeleteMapping(value = "/sanpham/{idsp}")
+    @DeleteMapping(value = "/xoasanpham={idsp}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteSanPham(@PathVariable Integer idsp){
         sanPhamService.deleteSanPham(idsp);
