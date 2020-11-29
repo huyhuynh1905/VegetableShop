@@ -63,4 +63,15 @@ public class CartAPI {
     }
 
 
+    @PostMapping(value = "/increasecart")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public CartDTO increaseCart(@RequestParam("idtk") Integer idtk, @RequestParam("idsp") Integer idsp){
+        return cartService.increaseCart(idtk,idsp);
+    }
+
+    @PostMapping(value = "/reductioncart")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public CartDTO reductionCart(@RequestParam("idtk") Integer idtk, @RequestParam("idsp") Integer idsp){
+        return cartService.increaseCart(idtk,idsp);
+    }
 }

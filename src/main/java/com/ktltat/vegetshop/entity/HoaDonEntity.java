@@ -19,6 +19,7 @@ public class HoaDonEntity {
     @Column(name = "tongtien")
     private String tongtien;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "ngaythanhtoan")
     private Date ngaythanhtoan;
 

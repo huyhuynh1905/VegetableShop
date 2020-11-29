@@ -51,8 +51,6 @@ public class TaiKhoanService implements ITaiKhoanService, UserDetailsService {
 
     @Override
     public void updateTaiKhoan(TaiKhoanEntity taiKhoanEntity) {
-        String hashpass = myBCrypPassword.hashPassword(taiKhoanEntity.getPass());
-        taiKhoanEntity.setPass(hashpass);
         taiKhoanRepository.save(taiKhoanEntity);
     }
 

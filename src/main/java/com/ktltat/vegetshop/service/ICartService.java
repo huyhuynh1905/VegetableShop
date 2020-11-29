@@ -15,4 +15,6 @@ public interface ICartService {
     CartDTO addCart(CartDTO cartDTO);
     void updateCart(CartDTO cartDTO);
     void deleteCart(Integer idcart);
+    CartDTO increaseCart(Integer idtk, Integer idsp);
+    CartDTO reductionCart(Integer idtk, Integer idsp);
 }

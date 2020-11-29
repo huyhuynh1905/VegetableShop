@@ -11,5 +11,7 @@ import java.util.List;
  */
 public interface CartRepository extends JpaRepository<CartEntity,Integer> {
     List<CartEntity> findAllByIdtk(Integer idtk);
+    CartEntity findAllByIdtkAndAndIdsp(Integer idtk, Integer idsp);
     void deleteByIdcart(Integer idcart);
+    void deleteByIdtk(Integer idtk);
 }

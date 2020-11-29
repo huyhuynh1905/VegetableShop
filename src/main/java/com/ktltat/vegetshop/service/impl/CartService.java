@@ -56,4 +56,28 @@ public class CartService implements ICartService {
     public void deleteCart(Integer idcart) {
         cartRepository.deleteByIdcart(idcart);
     }
+
+    @Override
+    public CartDTO increaseCart(Integer idtk, Integer idsp) {
+        CartEntity cartEntity = cartRepository.findAllByIdtkAndAndIdsp(idtk,idsp);
+        int soluong = cartEntity.getSoluong()+1;
+        double tonggia = Double.parseDouble(cartEntity.getTongiga())*soluong;
+        cartEntity.setSoluong(soluong);
+        cartEntity.setTongiga(String.valueOf(tonggia));
+        cartRepository.save(cartEntity);
+        CartDTO cartDTO = cartConverter.toCartDTO(cartEntity);
+        return cartDTO;
+    }
+
+    @Override
+    public CartDTO reductionCart(Integer idtk, Integer idsp) {
+        CartEntity cartEntity = cartRepository.findAllByIdtkAndAndIdsp(idtk,idsp);
+        int soluong = cartEntity.getSoluong()-1;
+        double tonggia = Double.parseDouble(cartEntity.getTongiga())*soluong;
+        cartEntity.setSoluong(soluong);
+        cartEntity.setTongiga(String.valueOf(tonggia));
+        cartRepository.save(cartEntity);
+        CartDTO cartDTO = cartConverter.toCartDTO(cartEntity);
+        return cartDTO;
+    }
 }
