@@ -1,13 +1,16 @@
 package com.ktltat.vegetshop.api;
 
+import com.ktltat.vegetshop.config.payload.CartResponse;
 import com.ktltat.vegetshop.dto.CartDTO;
 import com.ktltat.vegetshop.dto.SanPhamDTO;
+import com.ktltat.vegetshop.entity.SanPhamEntity;
 import com.ktltat.vegetshop.service.impl.CartService;
 import com.ktltat.vegetshop.service.impl.SanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,8 +35,23 @@ public class CartAPI {
 
     @GetMapping(value = "/cartbyidtk")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public List<CartDTO> getCartByIdtk(@RequestParam("idtk") Integer idtk){
-        return cartService.getCartByIdtk(idtk);
+    public List<CartResponse> getCartByIdtk(@RequestParam("idtk") Integer idtk){
+        List<CartDTO> cartDTOs = cartService.getCartByIdtk(idtk);
+        List<CartResponse> cartResponses = new ArrayList<>();
+        for (CartDTO cartDTO:cartDTOs){
+            SanPhamDTO sanPhamEntity = sanPhamService.findByIdsp(cartDTO.getIdsp());
+            CartResponse cartResponse = new CartResponse();
+            cartResponse.setIdcart(cartDTO.getIdcart());
+            cartResponse.setIdsp(cartDTO.getIdsp());
+            cartResponse.setIdtk(cartDTO.getIdtk());
+            cartResponse.setSoluong(cartDTO.getSoluong());
+            cartResponse.setGiasp(sanPhamEntity.getGiasp());
+            cartResponse.setHinhanh(sanPhamEntity.getHinhanh());
+            cartResponse.setTensp(sanPhamEntity.getTensp());
+            cartResponse.setTonggia(cartDTO.getTonggia());
+            cartResponses.add(cartResponse);
+        }
+        return cartResponses;
     }
 
     @PostMapping(value = "/cart")
