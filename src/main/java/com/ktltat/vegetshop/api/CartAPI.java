@@ -72,6 +72,6 @@ public class CartAPI {
     @PostMapping(value = "/reductioncart")
     @PreAuthorize("hasRole('ROLE_USER')")
     public CartDTO reductionCart(@RequestParam("idtk") Integer idtk, @RequestParam("idsp") Integer idsp){
-        return cartService.increaseCart(idtk,idsp);
+        return cartService.reductionCart(idtk,idsp);
     }
 }

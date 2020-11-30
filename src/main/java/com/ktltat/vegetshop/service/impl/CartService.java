@@ -61,7 +61,7 @@ public class CartService implements ICartService {
     public CartDTO increaseCart(Integer idtk, Integer idsp) {
         CartEntity cartEntity = cartRepository.findAllByIdtkAndAndIdsp(idtk,idsp);
         int soluong = cartEntity.getSoluong()+1;
-        double tonggia = Double.parseDouble(cartEntity.getTongiga())*soluong;
+        double tonggia = (Double.parseDouble(cartEntity.getTongiga()))/cartEntity.getSoluong()*soluong;
         cartEntity.setSoluong(soluong);
         cartEntity.setTongiga(String.valueOf(tonggia));
         cartRepository.save(cartEntity);
@@ -73,7 +73,7 @@ public class CartService implements ICartService {
     public CartDTO reductionCart(Integer idtk, Integer idsp) {
         CartEntity cartEntity = cartRepository.findAllByIdtkAndAndIdsp(idtk,idsp);
         int soluong = cartEntity.getSoluong()-1;
-        double tonggia = Double.parseDouble(cartEntity.getTongiga())*soluong;
+        double tonggia = (Double.parseDouble(cartEntity.getTongiga()))/cartEntity.getSoluong()*soluong;
         cartEntity.setSoluong(soluong);
         cartEntity.setTongiga(String.valueOf(tonggia));
         cartRepository.save(cartEntity);
