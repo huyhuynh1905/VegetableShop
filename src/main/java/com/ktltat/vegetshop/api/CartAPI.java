@@ -3,8 +3,6 @@ package com.ktltat.vegetshop.api;
 import com.ktltat.vegetshop.config.payload.CartResponse;
 import com.ktltat.vegetshop.dto.CartDTO;
 import com.ktltat.vegetshop.dto.SanPhamDTO;
-import com.ktltat.vegetshop.entity.CartEntity;
-import com.ktltat.vegetshop.entity.SanPhamEntity;
 import com.ktltat.vegetshop.service.impl.CartService;
 import com.ktltat.vegetshop.service.impl.SanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
