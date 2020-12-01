@@ -2,6 +2,7 @@ package com.ktltat.vegetshop.service;
 
 import com.ktltat.vegetshop.dto.CartDTO;
 import com.ktltat.vegetshop.dto.HoaDonDTO;
+import com.ktltat.vegetshop.entity.CartEntity;
 
 import java.util.List;
 
