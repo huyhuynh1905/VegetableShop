@@ -3,6 +3,7 @@ package com.ktltat.vegetshop.api;
 import com.ktltat.vegetshop.config.payload.CartResponse;
 import com.ktltat.vegetshop.dto.CartDTO;
 import com.ktltat.vegetshop.dto.SanPhamDTO;
+import com.ktltat.vegetshop.entity.CartEntity;
 import com.ktltat.vegetshop.entity.SanPhamEntity;
 import com.ktltat.vegetshop.service.impl.CartService;
 import com.ktltat.vegetshop.service.impl.SanPhamService;
@@ -57,10 +58,19 @@ public class CartAPI {
     @PostMapping(value = "/cart")
     @PreAuthorize("hasRole('ROLE_USER')")
     public CartDTO addCart(@RequestBody CartDTO cartDTO){
-        SanPhamDTO sanPhamDTO = sanPhamService.findByIdsp(cartDTO.getIdsp());
-        double gia = Double.parseDouble(sanPhamDTO.getGiasp());
-        double tonggia = cartDTO.getSoluong()*gia;
-        cartDTO.setTonggia(String.valueOf(tonggia));
+        CartDTO cartDTOCheck = cartService.findByIdtkAndIdsp(cartDTO.getIdtk(),cartDTO.getIdsp());
+        if (cartDTOCheck!=null){
+            int soluong = cartDTO.getSoluong();
+            double gia = (Double.parseDouble(cartDTO.getTonggia())/cartDTO.getSoluong())*soluong;
+            cartDTOCheck.setSoluong(soluong);
+            cartDTOCheck.setTonggia(String.valueOf(gia));
+            return cartService.addCart(cartDTOCheck);
+        }else {
+            SanPhamDTO sanPhamDTO = sanPhamService.findByIdsp(cartDTO.getIdsp());
+            double gia = Double.parseDouble(sanPhamDTO.getGiasp());
+            double tonggia = cartDTO.getSoluong() * gia;
+            cartDTO.setTonggia(String.valueOf(tonggia));
+        }
         return cartService.addCart(cartDTO);
     }
 

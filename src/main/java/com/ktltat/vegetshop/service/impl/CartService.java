@@ -80,4 +80,10 @@ public class CartService implements ICartService {
         CartDTO cartDTO = cartConverter.toCartDTO(cartEntity);
         return cartDTO;
     }
+
+    @Override
+    public CartDTO findByIdtkAndIdsp(Integer idtk, Integer idsp) {
+        CartEntity cartEntity = cartRepository.findAllByIdtkAndAndIdsp(idtk,idsp);
+        return cartConverter.toCartDTO(cartEntity);
+    }
 }

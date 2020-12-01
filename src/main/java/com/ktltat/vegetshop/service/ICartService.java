@@ -17,4 +17,5 @@ public interface ICartService {
     void deleteCart(Integer idcart);
     CartDTO increaseCart(Integer idtk, Integer idsp);
     CartDTO reductionCart(Integer idtk, Integer idsp);
+    CartDTO findByIdtkAndIdsp(Integer idtk, Integer idsp);
 }
