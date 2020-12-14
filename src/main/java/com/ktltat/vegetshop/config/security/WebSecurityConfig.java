@@ -8,6 +8,7 @@ import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,13 +56,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf() // Ngăn chặn request từ một domain khác
             .disable()
             .authorizeRequests().antMatchers("/adduser","/login","/sanpham","/sanphamloai{idloaisp}"
-                , "/sanpham={idsp}" ).permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
+                , "/sanpham={idsp}", "/images/**" ).permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
             .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
 
         // Thêm một lớp Filter kiểm tra jwt
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
 
 }
 
